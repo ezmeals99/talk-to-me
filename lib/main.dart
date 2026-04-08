@@ -30,18 +30,17 @@ class _MyAiFriendAppState extends State<MyAiFriendApp> {
       ..setNavigationDelegate(
         NavigationDelegate(
           onProgress: (int progress) {
-            // You can add a loading bar here if you want
+            // Loading progress
           },
         ),
       )
       ..loadRequest(
         Uri.parse(
-          'https://ais-dev-finhub3g6xkvtkfqsek3x3-692138362537.asia-east1.run.app',
+          'https://ais-pre-finhub3g6xkvtkfqsek3x3-692138362537.asia-east1.run.app',
         ),
       );
   }
 
-  // This asks for Microphone permission so the Voice Room works
   Future<void> _requestPermissions() async {
     await [Permission.microphone, Permission.camera].request();
   }
