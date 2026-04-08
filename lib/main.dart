@@ -41,6 +41,7 @@ class _MyAiFriendAppState extends State<MyAiFriendApp> {
       );
   }
 
+  // This asks for Microphone permission so the Voice Room works
   Future<void> _requestPermissions() async {
     await [Permission.microphone, Permission.camera].request();
   }
