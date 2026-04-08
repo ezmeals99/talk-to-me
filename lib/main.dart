@@ -1,4 +1,3 @@
-// Build Version 5 - Final Fix
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -19,6 +18,7 @@ class MyAiFriendApp extends StatefulWidget {
 
 class _MyAiFriendAppState extends State<MyAiFriendApp> {
   late final WebViewController controller;
+  bool isLoading = true;
 
   @override
   void initState() {
@@ -27,12 +27,11 @@ class _MyAiFriendAppState extends State<MyAiFriendApp> {
 
     controller = WebViewController()
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
-      ..setBackgroundColor(const Color(0x00000000))
+      ..setBackgroundColor(const Color(0xFF0A0B0D))
       ..setNavigationDelegate(
         NavigationDelegate(
-          onProgress: (int progress) {
-            // Loading progress
-          },
+          onPageStarted: (url) => setState(() => isLoading = true),
+          onPageFinished: (url) => setState(() => isLoading = false),
         ),
       )
       ..loadRequest(
@@ -49,7 +48,35 @@ class _MyAiFriendAppState extends State<MyAiFriendApp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(child: WebViewWidget(controller: controller)),
+      backgroundColor: const Color(0xFF0A0B0D),
+      body: SafeArea(
+        child: Stack(
+          children: [
+            WebViewWidget(controller: controller),
+            if (isLoading)
+              Container(
+                color: const Color(0xFF0A0B0D),
+                child: const Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      CircularProgressIndicator(color: Colors.yellow),
+                      SizedBox(height: 20),
+                      Text(
+                        "ALPHA BOT INITIALIZING...",
+                        style: TextStyle(
+                          color: Colors.yellow,
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: 2,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+          ],
+        ),
+      ),
     );
   }
 }
