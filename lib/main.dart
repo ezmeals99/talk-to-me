@@ -1,4 +1,4 @@
-// Build v4 - Final AI Signal Bot
+// Build Version 5 - Final Fix
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:permission_handler/permission_handler.dart';
